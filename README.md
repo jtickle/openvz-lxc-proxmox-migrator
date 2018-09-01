@@ -74,7 +74,7 @@ files have to do with supporting clean shutdowns and reboots.
 
 # References
 
-This whole thing is based on a bit of trail and error.  But, I got a lot of good
+This whole thing is based on a bit of trial and error.  But, I got a lot of good
 information from this page:
 
 https://pve.proxmox.com/wiki/Convert_OpenVZ_to_LXC
