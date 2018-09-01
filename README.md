@@ -69,8 +69,8 @@ here is where the files go if you want to use your ansible or puppet or whtever:
 * `files/tty.conf` -> `/etc/init/tty.conf`
 
 In particular, if you are unable to get the Proxmox Web Console to work, you need to
-replace `/etc/securetty` and `/etc/init/tty.conf`.  The other files have to do with
-supporting clean shutdowns and reboots.
+replace `/etc/securetty` and `/etc/init/tty.conf` and then stop/start the container.  The other
+files have to do with supporting clean shutdowns and reboots.
 
 # References
 
