@@ -10,6 +10,12 @@ I made these because I had 50+ more or less homogenous containers to migrate.
 They're not guaranteed or foolproof.  But my project is complete, and I put
 the scripts out here in the hopes that they help someone else.
 
+# CYA
+If you don't review these scripts and test them out in a safe environment first,
+you're a bad sysadmin and you should feel bad.  It should go without saying that
+there ain't no warranty here, but read LICENSE-COPYING before doing anything
+else and make sure you understand what it says.
+
 # How To Use
 The stage1 script just rsyncs the contents of your container to another host.
 
