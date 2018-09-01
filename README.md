@@ -45,6 +45,7 @@ In `proxmox-convert-stage2.sh`:
 6. `proxmox-convert-stage2.sh <VEID>  # This may take awhile`
 7. Use the Proxmox web interface, or the CLI, to create a new LXC container
    based off of `<VEID>.tar.xz`
+8. If you want to use your old SSH host keys: `rm -f /etc/ssh/*_key /etc/ssh/*_key.pub; cp /root/ssh_keys/* /etc/ssh/`
 
 ## Migrate Multiple Containers
 1. `ssh OPENVZ_HOST`
