@@ -29,6 +29,7 @@ In `proxmox-convert-stage1.sh`:
 2. `WORKBASE` should be set to the remote user and host and path that you want to
    work inside of on the proxmox host.  I used `/root/migrate/work` and that is
    reflected in the script.
+
 In `proxmox-convert-stage2.sh`:
 1. `MIGRATE` should be set to the Proxmox Template Path, usually `/var/lib/vz/template/cache`
    although if you want to put them on remote storage, here is where you can configure that
@@ -51,7 +52,7 @@ In `proxmox-convert-stage2.sh`:
 ## Migrate Multiple Containers
 1. `ssh OPENVZ_HOST`
 2. `for veid in $(vzlist -a | sed -e 's/^ \+//' | cut -d ' ' -f 1 | tail -n +2); do proxmox-convert-stage1.sh $veid; done`
-   This will take a very long time, but you don't have to stop any containers
+   This will take a very long time, but you don't have to stop any containers to copy over the bulk of the files
 3. For each container, plan some downtime, and start at step 3 under "Migrate a Single Container"
 
 ## Good Luck!
