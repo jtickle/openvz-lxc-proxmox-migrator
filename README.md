@@ -62,11 +62,11 @@ In some cases, my first 'yum update' after doing the migration changed some of t
 the stage2 script places in the new container.  You can read through stage2 if you want, but
 here is where the files go if you want to use your ansible or puppet or whtever:
 
-`files/lxc-halt` -> `/etc/init.d/lxc-halt`
-`files/lxc-sysinit.conf` -> `/etc/init/lxc-sysinit.conf`
-`files/power-status-changed.conf` -> `/etc/init/power-status-changed.conf`
-`files/securetty` -> `/etc/securetty`
-`files/tty.conf` -> `/etc/init/tty.conf`
+* `files/lxc-halt` -> `/etc/init.d/lxc-halt`
+* `files/lxc-sysinit.conf` -> `/etc/init/lxc-sysinit.conf`
+* `files/power-status-changed.conf` -> `/etc/init/power-status-changed.conf`
+* `files/securetty` -> `/etc/securetty`
+* `files/tty.conf` -> `/etc/init/tty.conf`
 
 In particular, if you are unable to get the Proxmox Web Console to work, you need to
 replace `/etc/securetty` and `/etc/init/tty.conf`.  The other files have to do with
