@@ -10,7 +10,7 @@ I made these because I had 50+ more or less homogenous containers to migrate.
 They're not guaranteed or foolproof.  But my project is complete, and I put
 the scripts out here in the hopes that they help someone else.
 
-**How To Use**
+# How To Use
 The stage1 script just rsyncs the contents of your container to another host.
 
 The stage2 script replaces some files to make it work with LXC and Proxmox,
@@ -19,37 +19,37 @@ container.
 
 You're going to want to use SSH keys, private key on openvz, public key on proxmox0.  Root to root.
 
-Deploy the 'files' directory from this repository somewhere on your proxmox
-host.  I used /root/migrate/files for the files directory, and /root/migrate/work
+Deploy the `files` directory from this repository somewhere on your proxmox
+host.  I used `/root/migrate/files` for the files directory, and `/root/migrate/work`
 for the working directory where it messes with your container files.
 
-**Configure the Scripts**
-In proxmox-convert-stage1.sh:
-1. PRIVATE should be set to your OpenVZ private base directory, usually /vz/private
-2. WORKBASE should be set to the remote user and host and path that you want to
-   work inside of on the proxmox host.  I used /root/migrate/work and that is
+## Configure the Scripts
+In `proxmox-convert-stage1.sh`:
+1. `PRIVATE` should be set to your OpenVZ private base directory, usually `/vz/private`
+2. `WORKBASE` should be set to the remote user and host and path that you want to
+   work inside of on the proxmox host.  I used `/root/migrate/work` and that is
    reflected in the script.
-In proxmox-convert-stage2.sh:
-1. MIGRATE should be set to the Proxmox Template Path, usually /var/lib/vz/template/cache
+In `proxmox-convert-stage2.sh`:
+1. `MIGRATE` should be set to the Proxmox Template Path, usually `/var/lib/vz/template/cache`
    although if you want to put them on remote storage, here is where you can configure that
-2. WORKBASE should be set to the path that you set in WORKBASE in the stage1 script.
+2. `WORKBASE` should be set to the path that you set in `WORKBASE` in the stage1 script.
    But keep in mind, it's a local path now.
-3. FILES should be wherever you have deployed the 'files' directory from this repository.
+3. `FILES` should be wherever you have deployed the `files` directory from this repository.
 
-**Migrate A Single Container**
-1. ssh OPENVZ_HOST
-2. proxmox-convert-stage1.sh <VEID>  # This may take awhile
-3. vzctl stop <VEID>
-4. proxmox-convert-stage1.sh <VEID>  # This should be pretty quick
-5. ssh PROXMOX_HOST
-6. proxmox-convert-stage2.sh <VEID>  # This may take awhile
+## Migrate A Single Container
+1. `ssh OPENVZ_HOST`
+2. `proxmox-convert-stage1.sh <VEID>  # This may take awhile`
+3. `vzctl stop <VEID>`
+4. `proxmox-convert-stage1.sh <VEID>  # This should be pretty quick`
+5. `ssh PROXMOX_HOST`
+6. `proxmox-convert-stage2.sh <VEID>  # This may take awhile`
 7. Use the Proxmox web interface, or the CLI, to create a new LXC container
-   based off of <VEID>.tar.xz
+   based off of `<VEID>.tar.xz`
 
-**Migrate Multiple Containers**
-1. ssh OPENVZ_HOST
-2. for veid in $(vzlist -a | sed -e 's/^ \+//' | cut -d ' ' -f 1 | tail -n +2); do proxmox-convert-stage1.sh $veid; done
+## Migrate Multiple Containers
+1. `ssh OPENVZ_HOST`
+2. `for veid in $(vzlist -a | sed -e 's/^ \+//' | cut -d ' ' -f 1 | tail -n +2); do proxmox-convert-stage1.sh $veid; done`
    # This will take a very long time, but you don't have to stop any containers
 3. For each container, plan some downtime, and start at step 3 under "Migrate a Single Container"
 
-**Good Luck!**
+## Good Luck!
