@@ -45,7 +45,9 @@ In `proxmox-convert-stage2.sh`:
 5. `ssh PROXMOX_HOST`
 6. `proxmox-convert-stage2.sh <VEID>  # This may take awhile`
 7. Use the Proxmox web interface, or the CLI, to create a new LXC container
-   based off of `<VEID>.tar.xz`
+   based off of `<VEID>.tar.xz`.  You may want to look at /etc/vz/conf/<VEID>.conf for the
+   old container to get disk, cpu, ram, and network information.  I took the opportunity to
+   increase our minimum sizes a bit.
 8. If you want to use your old SSH host keys, run this as root inside the new container:
    `rm -f /etc/ssh/*_key /etc/ssh/*_key.pub; cp /root/ssh_keys/* /etc/ssh/`
 
@@ -55,4 +57,26 @@ In `proxmox-convert-stage2.sh`:
    This will take a very long time, but you don't have to stop any containers to copy over the bulk of the files
 3. For each container, plan some downtime, and start at step 3 under "Migrate a Single Container"
 
-## Good Luck!
+## Issues
+In some cases, my first 'yum update' after doing the migration changed some of the files that
+the stage2 script places in the new container.  You can read through stage2 if you want, but
+here is where the files go if you want to use your ansible or puppet or whtever:
+
+`files/lxc-halt` -> `/etc/init.d/lxc-halt`
+`files/lxc-sysinit.conf` -> `/etc/init/lxc-sysinit.conf`
+`files/power-status-changed.conf` -> `/etc/init/power-status-changed.conf`
+`files/securetty` -> `/etc/securetty`
+`files/tty.conf` -> `/etc/init/tty.conf`
+
+In particular, if you are unable to get the Proxmox Web Console to work, you need to
+replace `/etc/securetty` and `/etc/init/tty.conf`.  The other files have to do with
+supporting clean shutdowns and reboots.
+
+# References
+
+This whole thing is based on a bit of trail and error.  But, I got a lot of good
+information from this page:
+
+https://pve.proxmox.com/wiki/Convert_OpenVZ_to_LXC
+
+# Good Luck!
