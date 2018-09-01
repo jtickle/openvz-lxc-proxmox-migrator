@@ -51,7 +51,7 @@ In `proxmox-convert-stage2.sh`:
 ## Migrate Multiple Containers
 1. `ssh OPENVZ_HOST`
 2. `for veid in $(vzlist -a | sed -e 's/^ \+//' | cut -d ' ' -f 1 | tail -n +2); do proxmox-convert-stage1.sh $veid; done`
-   # This will take a very long time, but you don't have to stop any containers
+   This will take a very long time, but you don't have to stop any containers
 3. For each container, plan some downtime, and start at step 3 under "Migrate a Single Container"
 
 ## Good Luck!
